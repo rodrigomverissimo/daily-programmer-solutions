@@ -19,8 +19,6 @@ change(123456) => 254
 
 (This is a repost of Challenge #65 [easy], originally posted by u/oskar_s in June 2012.)
 """
-
-import click
 from typing import Tuple
 
 
