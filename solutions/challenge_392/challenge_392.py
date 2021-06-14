@@ -78,7 +78,7 @@ def read_challenge_file() -> List[int]:
     return to_sort
 
 
-def main():
+def challenge():
     print("Warmup:")
     print(l_flipfront(array=[0, 1, 2, 3, 4], index=2))
     print(l_flipfront(array=[0, 1, 2, 3, 4], index=3))
@@ -114,5 +114,4 @@ def flipfront_sort_best_solution(x):
             flipfront(x, i)
 
 
-if __name__ == "__main__":
-    main()
+challenge()

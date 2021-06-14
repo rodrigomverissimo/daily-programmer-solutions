@@ -24,20 +24,22 @@ import click
 from typing import Tuple
 
 
-def change(amount: int) -> int:
+# I added the coin_types argument to have a functional solution using recursion
+def change(amount: int, coin_types: Tuple) -> int:
+    return (
+        amount
+        if len(coin_types) == 1
+        else amount // coin_types[0]
+        + change(amount=amount % coin_types[0], coin_types=coin_types[1:])
+    )
+
+
+def challenge():
     coin_types: Tuple = 500, 100, 25, 10, 5, 1
-    coins: int = 0
-    for coin_type in coin_types:
-        coins += amount // coin_type
-        amount = amount % coin_type
-    return coins
+    print(change(amount=0, coin_types=coin_types))
+    print(change(amount=12, coin_types=coin_types))
+    print(change(amount=468, coin_types=coin_types))
+    print(change(amount=123456, coin_types=coin_types))
 
 
-@click.command()
-@click.argument("amount", type=int)
-def main(amount: int):
-    print(change(amount=amount))
-
-
-if __name__ == "__main__":
-    main()
+challenge()
