@@ -39,10 +39,11 @@ How many flipfront calls do you require to sort this list of 10,000 integers? My
 from typing import List, Callable
 import sys
 
+# Need this or we will exceed the recursion limit
 sys.setrecursionlimit(10 ** 5)
 
 # the flipfront implementation with a lambda
-l_flipfront: Callable = lambda array, index: array[index - 1 :: -1] + array[index:]
+l_flipfront: Callable = lambda array, index: array[index - 1:: -1] + array[index:]
 
 
 # the flipfront sort implementation with recursion
@@ -56,18 +57,18 @@ def flipfront_sort(array: List[int]) -> List[int]:
 
     # if the argmax is already in the last position
     if argmax == len(array):
-        flipfront_sort(array[:-1]) + array[-1:]
+        flipfront_sort(array=array[:-1]) + array[-1:]
 
     # if the argmax is in the first position we just need to flip once
     elif argmax == 0:
-        array = l_flipfront(array, len(array))
+        array = l_flipfront(array=array, index=len(array))
         return flipfront_sort(array[:-1]) + array[-1:]
 
     # else, we need to flip twice
     else:
-        array = l_flipfront(array, argmax + 1)
-        array = l_flipfront(array, len(array))
-        return flipfront_sort(array[:-1]) + array[-1:]
+        array = flipfront(array=array, index=argmax + 1)
+        array = flipfront(array=array, index=len(array))
+        return flipfront_sort(array=array[:-1]) + array[-1:]
 
 
 def read_challenge_file() -> List[int]:
@@ -88,7 +89,7 @@ def challenge():
     print("Main Challenge")
 
     to_sort: List[int] = read_challenge_file()
-    sorted_challenge = flipfront_sort(to_sort)
+    sorted_challenge = flipfront_sort(array=to_sort)
 
     print("Did it match the automatic sort?")
     print(sorted_challenge == sorted(to_sort))
@@ -100,7 +101,7 @@ are faster than recursion as the latter also uses the memory stack. Putting it b
 """
 
 
-def flipfront(x, n):
+def flipfront_best_solution(x, n):
     x[:n] = x[n - 1 :: -1]
 
 
