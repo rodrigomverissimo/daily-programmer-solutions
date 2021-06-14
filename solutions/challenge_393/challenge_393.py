@@ -25,7 +25,7 @@ from typing import Tuple
 
 
 # I added the coin_types argument to have a functional solution using recursion
-def change(amount: int, coin_types: Tuple) -> int:
+def change(amount: int, coin_types: Tuple[int, ...]) -> int:
     return (
         amount
         if len(coin_types) == 1
@@ -35,7 +35,7 @@ def change(amount: int, coin_types: Tuple) -> int:
 
 
 def challenge():
-    coin_types: Tuple = 500, 100, 25, 10, 5, 1
+    coin_types: Tuple[int, ...] = 500, 100, 25, 10, 5, 1
     print(change(amount=0, coin_types=coin_types))
     print(change(amount=12, coin_types=coin_types))
     print(change(amount=468, coin_types=coin_types))
